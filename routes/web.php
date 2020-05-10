@@ -22,3 +22,6 @@ Route::get('/contact',function(){
 Route::get('/about',function(){
 	return view('about');
 });
+
+Route::get('customers','Manage\CustomerController@index');
+Route::post('customers','Manage\CustomerController@store');
