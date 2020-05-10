@@ -11,10 +11,14 @@
 |
 */
 
+Route::get('/',function(){
+	return view('home');
+});
 
+Route::get('/contact',function(){
+	return view('contact');
+});
 
-// Namespace :- Name of Folder has controllers
-
-Route::namespace('Front')->group(function(){
-	Route::get('/','HomeController@index')->name('front.home');
-}); 
+Route::get('/about',function(){
+	return view('about');
+});
