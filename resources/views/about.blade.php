@@ -1,8 +1,14 @@
 @extends('layouts.master')
 
+
+{{--  Page title --}}
+@section('title','Info')
+
+
+
 @section('content')
     
-<h1>About</h1>
+
 
 <p>Company Name</p>
 <p>Info:&<i class="fa fa-copyright" aria-hidden="true"></i></p>

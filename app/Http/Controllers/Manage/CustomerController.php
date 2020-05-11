@@ -13,8 +13,11 @@ class CustomerController extends Controller
      * @return Response
      */
     public function index(){
-        $customers = Customer::all();
-        return view('internals.customers',compact('customers'));
+        // ACtive customers
+        $activeCustomers = Customer::active()->get();
+        // Inactive customers
+        $inactiveCustomers = Customer::InActive()->get();
+        return view('internals.customers',compact('activeCustomers','inactiveCustomers'));
     } 
     
     /**
@@ -22,9 +25,17 @@ class CustomerController extends Controller
      * @return Response
      */
     public function store(){
-        $customer = new Customer();
-        $customer->name = request('name');
-        $customer->save();
+        $rules = [
+            'name' => 'required|min:6',
+            'email' => 'required|email|unique:users',
+            'active' => 'required',
+        ];
+
+        // Validate the user
+        $data = request()->validate($rules);
+
+        Customer::create($data);
+        
         return back();
     }
 }
