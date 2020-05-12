@@ -11,7 +11,12 @@ class Customer extends Model
     protected $guarded = [];
    
     
-    
+    /**
+     *  Default attributes
+     */
+    protected $attributes = [
+        'active' => 1,
+    ];
     
     /**
      *  accesss active attribute 
@@ -19,10 +24,7 @@ class Customer extends Model
      *  @return column
      */
     public function getActiveAttribute($attribute){
-        return [
-            0 => 'online',
-            1 => 'offline',
-        ][$attribute];
+        return $this->activeOptions()[$attribute];
     }
 
 
@@ -48,8 +50,21 @@ class Customer extends Model
     /**
      *  Company that customer belongs to
      *  @return relation
-     */
+     */ 
+  
     public function company(){
         return $this->belongsTo(Company::class);
+    }
+
+    /**
+     *  Handle status options
+     *  @return boolean
+     */
+    public function activeOptions(){
+        return [
+            1 => 'online',
+            0 => 'offline',
+            2 => 'In progress',
+        ];
     }
 }

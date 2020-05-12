@@ -32,7 +32,8 @@ class CustomerController extends Controller
     public function create()
     {
         $companies = Company::all();
-        return view('customers.create',compact('companies'));
+        $customer = new Customer();
+        return view('customers.create',compact('companies','customer'));
     }
 
 
@@ -45,17 +46,7 @@ class CustomerController extends Controller
      */
     public function store()
     {
-        $rules = [
-            'name' => 'required|min:6',
-            'email' => 'required|email',
-            'active' => 'required',
-            'company_id' => 'required',
-        ];
-
-        // Validate the user
-        $data = request()->validate($rules);
-
-        Customer::create($data);
+        Customer::create($this->validateRequest());
         
         return redirect('customers');
     }
@@ -78,9 +69,10 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Customer $customer)
     {
-        //
+        $companies = Company::all();
+        return view('customers.edit',compact('customer','companies'));
     }
 
     /**
@@ -90,9 +82,14 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Customer $customer)
     {
-        //
+     
+        // Update customer
+        $customer->update($this->validateRequest());
+
+        //return back
+        return redirect('customers' . '/' . $customer->id);
     }
 
     /**
@@ -101,8 +98,25 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Customer $customer)
     {
-        //
+        // Delete customer
+        $customer->delete();
+        // return back
+        return redirect('customers');
+    }
+
+
+    /**
+     *  Validate new customer
+     *  @return Request
+     */
+    private function validateRequest(){
+        return request()->validate([
+            'name' => 'required|min:6',
+            'email' => 'required|email',
+            'active' => 'required',
+            'company_id' => 'required',
+        ]); ;
     }
 }
