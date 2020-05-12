@@ -28,4 +28,5 @@ Route::group(['prefix' => 'customers', 'namespace'=>'Manage'], function () {
 	Route::get('/','CustomerController@index');
 	Route::get('create','CustomerController@create');
 	Route::post('/','CustomerController@store');
+	Route::get('/{customer}','CustomerController@show');
 });
