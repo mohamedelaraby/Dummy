@@ -15,21 +15,29 @@ Route::get('/',function(){
 	return view('home');
 });
 
-Route::get('/contact',function(){
-	return view('contact');
-});
-
-Route::get('/about',function(){
-	return view('about');
-});
-
-Route::group(['prefix' => 'customers', 'namespace'=>'Manage'], function () {
+Route::group(['namespace' => 'Manage'], function () {
 	
-	Route::get('/','CustomerController@index');
-	Route::get('create','CustomerController@create');
-	Route::post('/','CustomerController@store');
-	Route::get('/{customer}','CustomerController@show');
-	Route::get('/{customer}/edit','CustomerController@edit');
-	Route::patch('/{customer}','CustomerController@update');
-	Route::delete('/{customer}','CustomerController@destroy');
+
+	// Contact page
+	Route::group(['prefix' => 'contact'], function () {
+		Route::get('/','ContactFormController@create');
+		Route::post('/','ContactFormController@store');
+	});
+
+	Route::get('/about',function(){
+		return view('about');
+	});
+
+	Route::group(['prefix' => 'customers'], function () {
+		
+		Route::get('/','CustomerController@index');
+		Route::get('create','CustomerController@create');
+		Route::post('/','CustomerController@store');
+		Route::get('/{customer}','CustomerController@show');
+		Route::get('/{customer}/edit','CustomerController@edit');
+		Route::patch('/{customer}','CustomerController@update');
+		Route::delete('/{customer}','CustomerController@destroy');
+	});
+
+
 });
