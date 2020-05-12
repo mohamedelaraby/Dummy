@@ -23,5 +23,9 @@ Route::get('/about',function(){
 	return view('about');
 });
 
-Route::get('customers','Manage\CustomerController@index');
-Route::post('customers','Manage\CustomerController@store');
+Route::group(['prefix' => 'customers', 'namespace'=>'Manage'], function () {
+	
+	Route::get('/','CustomerController@index');
+	Route::get('create','CustomerController@create');
+	Route::post('/','CustomerController@store');
+});

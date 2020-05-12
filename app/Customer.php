@@ -10,6 +10,23 @@ class Customer extends Model
     // Allow mass assignment with no guarded input fields
     protected $guarded = [];
    
+    
+    
+    
+    /**
+     *  accesss active attribute 
+     *  @param $attribute | mix
+     *  @return column
+     */
+    public function getActiveAttribute($attribute){
+        return [
+            0 => 'online',
+            1 => 'offline',
+        ][$attribute];
+    }
+
+
+
     /**
      *  Active status 
      *  @param $query | mix
