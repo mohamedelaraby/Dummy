@@ -8,6 +8,7 @@
 <div class="row m-5 ">
     <div class="col-8">
         <div class="card">
+            @if(!session()->has('msg'))
             <div class="card-header m-3"><h1 class="lead">Get in Touch</h1></div>
             <div class="card-body">
                 <form action="{{url('contact')}}" method="POST">
@@ -34,7 +35,7 @@
                 </form>
             </div>
         </div>
-
+        @endif
     </div>
 </div>
 
