@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Mail;
 
 class ContactFormController extends Controller
 {
+
+public function __construct(){
+    $this->middleware('admin');
+}
+
     /**
      *  Create new contact message
      * @return Response
