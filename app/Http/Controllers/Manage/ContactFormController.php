@@ -29,9 +29,12 @@ class ContactFormController extends Controller
             'message'=> 'required',
          ]);
         
-
+         /**
+          * @var $email null|mix email to sent to,
+          */
+         $email ='test@test.com';
          // Send mail
-         Mail::to('test@test.com')->send(new ContactFormMail($data));
+         Mail::to($email)->send(new ContactFormMail($data));
 
           // Session message
          session()->flash('msg','Thanks for your message , We`ll be in touch');

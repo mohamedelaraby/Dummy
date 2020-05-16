@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
 {{--  Page title --}}
 @section('title','Contact')
